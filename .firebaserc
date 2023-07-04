@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "login-angular-7eeec": {
+      "hosting": {
+        "angular-boilerplate": [
+          "login-angular-7eeec"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "login-angular-7eeec"
+  }
+}
