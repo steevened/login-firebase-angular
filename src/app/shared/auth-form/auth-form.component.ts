@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorMessageComponent } from './components/error-message/error-message.component';
+import { AuthService } from '@app/pages/users/services/auth.service';
+import { Observable } from 'rxjs';
 
 const actionType = {
   signIn: {
@@ -38,7 +40,9 @@ export class AuthFormComponent implements OnInit {
 
   form!: FormGroup;
   title!: string;
+  user$!: Observable<any>;
 
+  private readonly authService = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly emailPatter = '[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
@@ -71,7 +75,7 @@ export class AuthFormComponent implements OnInit {
   // }
 
   signInGoogle(): void {
-    // TODO
+    this.authService.signInGoogle();
   }
 
   ngOnInit(): void {
@@ -80,6 +84,6 @@ export class AuthFormComponent implements OnInit {
         ? actionType.signIn.title
         : actionType.signUp.title;
     this.initForm();
-    console.log(this.action);
+    this.user$ = this.authService.userState$;
   }
 }
