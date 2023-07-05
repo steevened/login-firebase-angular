@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ErrorMessageComponent } from './components/error-message/error-message.component';
 
 const actionType = {
   signIn: {
@@ -23,9 +24,14 @@ type ActionType = keyof typeof actionType;
 @Component({
   selector: 'app-auth-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss'],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    ErrorMessageComponent,
+  ],
 })
 export class AuthFormComponent implements OnInit {
   @Input() action!: ActionType;
@@ -46,7 +52,9 @@ export class AuthFormComponent implements OnInit {
   onSubmit(): void {
     const { email, password } = this.form.value;
 
-    this.action === actionType.signIn.action ? this.signIn() : this.signUp();
+    this.action === actionType.signIn.action
+      ? 'this.signIn()'
+      : 'this.signUp()';
   }
 
   hasError(field: string): boolean {
@@ -54,13 +62,13 @@ export class AuthFormComponent implements OnInit {
     return !!fieldName?.invalid && fieldName?.touched;
   }
 
-  signIn(): void {
-    console.log('sign in');
-  }
+  // signIn(): void {
+  //   console.log('sign in');
+  // }
 
-  signUp(): void {
-    console.log('sign up');
-  }
+  // signUp(): void {
+  //   console.log('sign up');
+  // }
 
   signInGoogle(): void {
     // TODO
